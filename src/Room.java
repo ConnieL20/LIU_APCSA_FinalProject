@@ -7,4 +7,7 @@ public class Room {
      * Should include any other static or instance variables and/or methods, including getters/setters and private helper
      * methods, that you determine are necessary to implement the requirements.
      */
+
+    private static String lairName;
+
 }

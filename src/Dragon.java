@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Dragon {
     /**
@@ -12,37 +13,42 @@ public class Dragon {
 
     //Instance Variables
     private int health;
-    private ArrayList<String> dragonNamesList = new ArrayList<String>();
     private String dragonName;
     private int level;
     private int attack;
 
     //Constructor
-    public Dragon(){
+    public Dragon(String dragonName, int level){
         health = 100;
-        int randomName = (int)(Math.random() * 8) + 1; //randomly sets a dragon's name
-        if (randomName >= 1 && randomName < 3 ) {
-            dragonName = "The Abysmal Wrath Dragon";
-        } else if (randomName >= 3 && randomName < 5){
-            dragonName = "The Golden Gluttonous Dragon";
-        } else if (randomName >= 5 && randomName < 7) {
-            dragonName = "The Crimson Fire Dragon";
-        } else {
-            dragonName = "The White Death Dragon" ;
-        }
-
-        int randomLevel = (int)(Math.random() * 4) + 1; //randomly sets a dragon's level
-        if (randomLevel == 1) {
-            level = 1;
-        } else if (randomLevel == 2) {
-            level = 2;
-        } else if (randomLevel == 3) {
-            level = 3;
-        } else {
-            level = 4;
-        }
-
+        this.dragonName = dragonName;
+        this.level = level;
         attack = 30;
+    }
+
+
+
+    /**
+     * boolean that checks if a dragon is dead or not
+     */
+    public boolean isDead() {
+        if (health > 0){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Method for calculating the attack amount of the dragon
+     * @return
+     */
+    public int getDragonAttack(){
+        int dragonAttackAmt = level;
+
+        int buffer = (int)(Math.random() * 10) + 1;
+        dragonAttackAmt += buffer;
+
+        return dragonAttackAmt;
     }
 
     //Getter and setter methods
@@ -54,8 +60,8 @@ public class Dragon {
         return dragonName;
     }
 
-    public void subtractDragonHealth(int newHealth){
-        health -= newHealth;
+    public void subtractDragonHealth(int damage){
+        health -= damage;
     }
 
 

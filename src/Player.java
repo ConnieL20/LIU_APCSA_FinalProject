@@ -11,12 +11,12 @@ public class Player {
      */
 
     //Instance variables
-    private String name;
+    private static String name;
+
     private int health;
     private int gold;
     private boolean healthPotStatus;
     private Sword sword;
-    private Dragon dragon;
     //Constructor
     public Player(String name){
         this.name = name;
@@ -24,7 +24,6 @@ public class Player {
         gold = 50;
         healthPotStatus = false;
         sword = new Sword();
-        dragon = new Dragon();
     }
 
     //Getter and setter methods
@@ -48,12 +47,12 @@ public class Player {
         return sword;
     }
 
-    public void addHealth(int newHealth){
-        health += newHealth;
+    public void addHealth(int damage){
+        health += damage;
     }
 
-    public void subtractHealth(int newHealth){
-        health -= newHealth;
+    public void subtractHealth(int damage){
+        health -= damage;
     }
 
     public void addGold(int newGold){
@@ -67,22 +66,15 @@ public class Player {
 
     /**
      * This method determines the attack amount for the Player
+     * Displays the corresponding text for the attack amount
      */
-    public void playerAttack(){
+    public int getPlayerAttack(){
         int attackAmt = sword.getAttack();
-        System.out.println("You current weapon has an attack of " + attackAmt + ".");
 
         int buffer = (int)(Math.random() * 10) + 1;
-        if (buffer >= 1 && buffer < 5){
-            attackAmt *= buffer;
-            System.out.println("The Gods have given you their mercy.");
-        } else {
-            attackAmt *= buffer;
-            System.out.println("The Gods smile down upon you!");
-        }
-        System.out.println("Your attack amount has been multiplied by " + buffer + " and is now " + attackAmt);
-        dragon.subtractDragonHealth(attackAmt);
-        System.out.println("You attack " + dragon.getDragonName() + ". Now it has " + dragon.getDragonHealth() + " health left!");
+        attackAmt *= buffer;
+
+        return attackAmt;
     }
 
 }
