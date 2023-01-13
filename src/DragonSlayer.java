@@ -13,19 +13,21 @@ public class DragonSlayer {
     private Player player;
     private Dragon dragon;
     private Sword sword;
+    private Room room;
     private int numDragons;
     private boolean playerTurn;
-    private int rooms;
+    private int numRooms;
     private Set<String> defeatedDragons;
 
 
     public DragonSlayer() {
         scan = new Scanner(System.in);
         defeatedDragons = new HashSet<>();
+        room = getRoom();
         dragon = getDragon();
         playerTurn = true;
-        rooms = 8;
-        numDragons = 0;
+        numRooms = 5;
+        numDragons = 8;
     }
 
     //Getter and setter methods
@@ -64,6 +66,11 @@ public class DragonSlayer {
 
     public void setDragon(Dragon newDragon) {
         dragon = newDragon;
+    }
+
+    public Room getRoom(){
+        room = room.getNewRoom();
+        return room;
     }
 
     public Player getPlayer() {
@@ -113,15 +120,30 @@ public class DragonSlayer {
             isValid = false;
         }
 
-        while (isValid && numDragons < 4 && !dragon.isDead()) {
+        boolean wantsToContinue = true;
+        while (isValid && wantsToContinue) {
             setDragon(dragon);
-            numDragons++;
 
             if (playerTurn) {
+                System.out.println("Your current sword attack stat is " + sword.getAttack());
                 int playerAttack = player.getPlayerAttack();
+                if (playerAttack >= 10 && playerAttack < 30){
+                    System.out.println("Not the best upgrade. Did you do something to anger the Gods?");
+                    System.out.println("Oh well! Your new sword attack is now " + playerAttack + "!");
+
+                } else {
+                    System.out.println("The Gods smile upon you! Your new sword attack is now " + playerAttack + "!");
+                }
+                System.out.println("You attack " + dragon.getDragonName());
+
+
+                promptEnterKey();
+                System.out.println("--------------------------------------------------------------------------------------");
 
                 if (dragon.isDead()) {
                     addDefeatedDragon(dragon);
+                    System.out.println("You defeated " + dragon.getDragonName() + "!");
+                    setDragon(getDragon());
                 } else {
                     dragon.subtractDragonHealth(playerAttack);
                     System.out.printf("The dragon takes %s damage!\n", playerAttack);
@@ -130,7 +152,7 @@ public class DragonSlayer {
                 }
 
             } else {
-                System.out.println("The dragon has begun to attack...");
+                System.out.printf("%s has begun to attack...", dragon.getDragonName());
                 int dragonAttack = dragon.getDragonAttack();
                 int maxProb = sword.getDodge();
                 int randomDodge = (int) (Math.random() * maxProb);
@@ -155,5 +177,10 @@ public class DragonSlayer {
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
+    }
+
+    public void promptEnterKey(){
+        System.out.println("Press \"ENTER\" to continue...");
+        scan.nextLine();
     }
 }

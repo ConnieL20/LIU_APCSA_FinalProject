@@ -9,5 +9,102 @@ public class Room {
      */
 
     private static String lairName;
+    private int numDragons;
+    private boolean isAllSlayed;
+    private boolean isCleared;
+    private boolean roomSearched;
+
+    //constructor
+    public Room(){
+        lairName = "";
+        int randomNumDragons = (int)(Math.random() * 2);
+        numDragons = randomNumDragons;
+        isAllSlayed = false;
+        isCleared = false;
+        roomSearched = false;
+    }
+
+
+    /**
+     * Gets a new room
+     */
+    public Room getNewRoom()
+    {
+        double rnd = Math.random();
+        if (rnd < .2)
+        {
+            return new Room();
+        }
+        else if (rnd < .4)
+        {
+            return new Room();
+        }
+        else if (rnd < .6)
+        {
+            return new Room();
+        }
+        else if (rnd < .8)
+        {
+            return new Room();
+        }
+        else if (rnd < 1.0)
+        {
+            return new Room();
+        }
+        else
+        {
+            return new Room();
+        }
+    }
+
+    /**
+     * "enters" a room
+     */
+    public void enterRoom() {
+        getNewRoom();
+        System.out.println("You have entered a new room..." + "\n");
+        System.out.println("Welcome to " + getLairName());
+    }
+
+    /**
+     * returns a boolean whether the room has been searched for a health pot or not
+     * @return
+     */
+    public boolean isRoomSearched() {
+        return roomSearched;
+    }
+
+    //getter and setter methods
+    public String getLairName(){
+        return lairName;
+    }
+
+    public void setLairName(String currentLairName){
+        lairName = currentLairName;
+    }
+
+    public int getNumDragons(){
+        return numDragons;
+    }
+
+    public boolean getIsAllSlayed() {
+        if (numDragons == 0){
+            isAllSlayed = true;
+        } else {
+            isAllSlayed = false;
+        }
+        return isAllSlayed;
+    }
+
+    public boolean GetIsCleared(){
+        if (isAllSlayed){
+            isCleared = true;
+        } else {
+            isCleared = false;
+        }
+        return isCleared;
+    }
+
+
 
 }
