@@ -30,7 +30,7 @@ public class Dragon {
     /**
      * boolean that checks if a dragon is dead or not
      */
-    public boolean isDead() {
+    public boolean dragonIsDead() {
         if (health > 0){
             return false;
         } else {
@@ -45,8 +45,8 @@ public class Dragon {
     public int getDragonAttack(){
         int dragonAttackAmt = level;
 
-        int buffer = (int)(Math.random() * 10) + 1;
-        dragonAttackAmt += buffer;
+        int buffer = (int)(Math.random() * 9) + 2;
+        dragonAttackAmt *= buffer;
 
         return dragonAttackAmt;
     }
@@ -54,6 +54,10 @@ public class Dragon {
     //Getter and setter methods
     public int getDragonHealth() {
         return health;
+    }
+
+    public int getDragonLevel(){
+        return level;
     }
 
     public String getDragonName(){

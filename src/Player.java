@@ -77,4 +77,12 @@ public class Player {
         return attackAmt;
     }
 
+    public boolean playerIsDead(){
+        if (health > 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }
