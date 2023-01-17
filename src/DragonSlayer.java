@@ -37,19 +37,19 @@ public class DragonSlayer {
         String dragonName = "";
         int randomName = (int) (Math.random() * 7) + 1; //randomly sets a dragon's name
         if (randomName == 1) {
-            dragonName = "Lucifer";
+            dragonName = "Toothless";
         } else if (randomName == 2) {
-            dragonName = "Mammon";
+            dragonName = "Mushu";
         } else if (randomName == 3) {
-            dragonName = "Asmodeus";
+            dragonName = "Maleficent";
         } else if (randomName == 4) {
-            dragonName = "Leviathan";
+            dragonName = "Dvalin";
         } else if (randomName == 5) {
-            dragonName = "Beelzebub";
+            dragonName = "Stormfly";
         } else if (randomName == 6) {
-            dragonName = "Satan";
+            dragonName = "Morax";
         } else {
-            dragonName = "Belphegor";
+            dragonName = "Azhdaha";
         }
 
         int level = 0;
@@ -75,32 +75,32 @@ public class DragonSlayer {
         double rnd = Math.random();
         if (rnd < .2)
         {
-            den.setLairName("Hell #1");
+            den.setLairName("Azul Sea of Terror");
             return new Room();
         }
         else if (rnd < .4)
         {
-            den.setLairName("Hell #2");
+            den.setLairName("Emerald Green Jungle");
             return new Room();
         }
         else if (rnd < .6)
         {
-            den.setLairName("Hell #3");
+            den.setLairName("Golden Death Desert");
             return new Room();
         }
         else if (rnd < .8)
         {
-            den.setLairName("Hell #4");
+            den.setLairName("White Wraith Island");
             return new Room();
         }
         else if (rnd < 1.0)
         {
-            den.setLairName("Hell #5");
+            den.setLairName("Black Soul Mountains");
             return new Room();
         }
         else
         {
-            den.setLairName("Hell #6");
+            den.setLairName("Violet Delights Archipelago");
             return new Room();
         }
     }
@@ -135,9 +135,10 @@ public class DragonSlayer {
         sword = player.getSword();
         System.out.println("-------------------------------------------------------------------------------------------");
         System.out.println("Greetings " + player.getName() + "! We have been awaiting for your arrival. Dragons have plagued our kingdom and we need your help to slay them!");
-        System.out.println("Kill all dragons within FIVE lairs (AKA Rooms) to save us!!");
+        System.out.println("With each dragon you slay, you can get a sword upgrade or regain a fraction of your health!");
+        System.out.println("Kill all dragons within FIVE lairs (AKA Rooms) to save us!");
         System.out.println("." + "\n" + "." + "\n" + ".");
-        System.out.println("What's that? You want...a reward? Err...if you defeat a dragon you might get some gold!");
+        System.out.println("What's that? You want...a reward? Err...if you defeat a dragon you *might* get some gold!");
         System.out.println("." + "\n" + "." + "\n" + ".");
         System.out.println("O-oh you accept? *mumbles* What a little sh-" + "\n");
         System.out.print("Silly me! We must keep this school-friendly. Well then, brave warrior, enter 'y' to venture on! ");
@@ -150,6 +151,7 @@ public class DragonSlayer {
 
         if (answer.equals("y") || answer.equals("Y")) {
             System.out.println("-------------------------------------------------------------------------------------------");
+            displayBaseStats();
             setDragon(dragon);
             numRooms++;
 
@@ -159,10 +161,24 @@ public class DragonSlayer {
                 System.out.println("You have ventured into a new room..." + "\n");
             }
             System.out.println("Welcome to " + den.getLairName() + "!");
+            searchHealthPot();
             System.out.println("Beware...there are " + den.getNumDragons() + " dragons in here...");
             System.out.println("Here comes a dragon! " + dragon.getDragonName() + " is a level " + dragon.getDragonLevel());
             System.out.println("--------------------------------------------------------------------------------------");
             enterRoom();
+
+            if (player.playerIsDead()){
+                System.out.println("Goodbye!");
+            } else {
+                System.out.println("Would you like to proceed into the next room? (y/n)");
+                String proceed = scan.nextLine();
+                if (proceed.equals("y")){
+                    getNewRoom();
+                    enterRoom();
+                } else  {
+                    System.out.println("Goodbye!");
+                }
+            }
 
         } else {
             System.out.println("That was an invalid input. Goodbye!");
@@ -182,16 +198,23 @@ public class DragonSlayer {
             int dragonAttack = dragon.getDragonAttack();
 
             if (playerTurn) {
-                System.out.println("Your current sword attack stat is " + sword.getAttack());
+                System.out.println("Your current sword attack stat is " + sword.getAttack() + ".");
+                System.out.print("Do you want to risk casting a spell for a higher sword attack? (y/n)");
+                String spellChoice = scan.nextLine();
 
-                if (playerAttack >= 10 && playerAttack < 30){
-                    System.out.println("Not the best upgrade. Did you do something to anger the Gods? Oh well! Your new sword attack is now " + playerAttack + "!");
+                if (spellChoice.equals("y") || spellChoice.equals("Y")){
+                    if (playerAttack <= sword.getAttack()){
+                        System.out.println("Not the best upgrade. Did you do something to anger the Gods? Oh well! Your new sword attack is now " + playerAttack + "!");
+                    } else {
+                        System.out.println("The Gods smile upon you! Your new sword attack is now " + playerAttack + "!");
+                    }
+                    System.out.println("You attack " + dragon.getDragonName());
+                    dragon.subtractDragonHealth(playerAttack);
                 } else {
-                    System.out.println("The Gods smile upon you! Your new sword attack is now " + playerAttack + "!");
+                    System.out.println("You attack " + dragon.getDragonName());
+                    playerAttack = sword.getAttack();
+                    dragon.subtractDragonHealth(playerAttack);
                 }
-
-                System.out.println("You attack " + dragon.getDragonName());
-                dragon.subtractDragonHealth(playerAttack);
 
                 if (dragon.dragonIsDead()) {
                     addDefeatedDragon(dragon);
@@ -222,28 +245,60 @@ public class DragonSlayer {
                 } else {
                     player.subtractHealth(dragonAttack);
                     System.out.println("Ouch! The dragon swipes and you get hit!");
+
                     if (player.getHealth() > 0){
                         System.out.printf("You now have %s health left\n", player.getHealth());
                     } else {
                         System.out.println(dragon.getDragonName() + " has defeated you! You are DEAD.");
                     }
                 }
-                playerTurn = true;
+
+                if (den.isRoomSearched() && !player.playerIsDead()){
+                    System.out.println("Would you like to use your health pot now? (y/n)");
+                    String healthPot = scan.nextLine();
+                    if (healthPot.equals("y")){
+                        player.addHealth(50);
+                        System.out.println("You have used your health pot! Your health has been restored to " + player.getHealth());
+
+                    } else {
+                        System.out.println("Alright then, if you say so!");
+                    }
+                } else {
+                    System.out.println("You've already used your health pot!");
+                }
 
                 promptEnterKey();
+                playerTurn = true;
                 System.out.println("--------------------------------------------------------------------------------------");
             }
         }
     }
 
     public void searchHealthPot(){
-        System.out.println("Would you like to search the room for a health pot? (y/n)");
+        System.out.println("Would you like to search the room for a health pot? You can save and use it to heal yourself during battle! (y/n)");
         String answer = scan.nextLine();
         if (answer.equals("n") || answer.equals("N")){
-
+            den.setRoomSearchedStatus(false);
+        } else {
+            int healthPotRandom = (int)(Math.random() * 2) + 1;
+            if (healthPotRandom == 1){
+                den.setRoomSearchedStatus(true);
+                System.out.println("You've successfully found a health pot! You may now choose to use it as you see fit during battle.");
+            } else {
+                den.setRoomSearchedStatus(false);
+                System.out.println("Unfortunately, there is no health pot in this room.");
+            }
         }
     }
 
+    public void displayBaseStats(){
+        System.out.println("Here are your base stats:");
+        System.out.println("- Your health is 100.\n- Your current sword attack is 10 (you can increase it when you clear a room)!\n- Your dodge rate is 20%.");
+        System.out.println("** During battle, you can choose to cast a spell to temporarily increase your sword attack (beware, it might decrease it :p)! **" + "\n");
+        System.out.println("Here is a dragon's base stats:");
+        System.out.println("- Each dragon starts a with a health of 100.\n- Each dragon has a base attack of 30 (which they can also increase during battle)." + "\n");
+        System.out.println("-------------------------------------------------------------------------------------------");
+    }
     private static void wait(int ms) {
         try {
             Thread.sleep(ms);

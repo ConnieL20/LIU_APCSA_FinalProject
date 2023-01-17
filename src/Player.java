@@ -70,11 +70,27 @@ public class Player {
      */
     public int getPlayerAttack(){
         int attackAmt = sword.getAttack();
-
         int buffer = (int)(Math.random() * 10) + 1;
-        attackAmt *= buffer;
+
+        if (generateSpellSuccess()){
+            attackAmt *= buffer;
+        } else {
+            attackAmt /= buffer;
+        }
 
         return attackAmt;
+    }
+
+    public boolean generateSpellSuccess(){
+
+        int successRate = (int)(Math.random() * 2) + 1;
+        if (successRate == 1){
+            return false;
+        } else {
+            return true;
+        }
+
+
     }
 
     public boolean playerIsDead(){

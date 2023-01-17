@@ -45,10 +45,10 @@ public class Dragon {
     public int getDragonAttack(){
         int dragonAttackAmt = level;
 
-        int buffer = (int)(Math.random() * 9) + 2;
-        dragonAttackAmt *= buffer;
+        int dragonBuffer = (int)(Math.random() * 9) + 2;
+        dragonAttackAmt *= dragonBuffer;
 
-        return dragonAttackAmt;
+        return dragonAttackAmt + attack;
     }
 
     //Getter and setter methods

@@ -15,8 +15,8 @@ public class Room {
 
     //constructor
     public Room(){
-        lairName = "Hell #0";
-        int randomNumDragons = (int)(Math.random() * 3) + 1;
+        lairName = "Crimson Blood Keep";
+        int randomNumDragons = (int)(Math.random() * 2) + 1;
         numDragons = randomNumDragons;
         isAllSlayed = false;
         roomSearched = false;
@@ -29,6 +29,10 @@ public class Room {
      */
     public boolean isRoomSearched() {
         return roomSearched;
+    }
+
+    public void setRoomSearchedStatus(boolean status){
+        roomSearched = status;
     }
 
     //getter and setter methods

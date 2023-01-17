@@ -23,7 +23,7 @@ public class Sword {
     }
 
     public double getDodge(){
-        return dodge/10;
+        return dodge;
     }
 
     public void setAttack(int newAttack){
