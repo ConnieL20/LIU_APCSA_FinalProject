@@ -48,6 +48,10 @@ public class Room {
         return numDragons;
     }
 
+    public void setNumDragons(int newNuMDragons){
+        numDragons = newNuMDragons;
+    }
+
     public boolean getIsAllSlayed() {
         if (numDragons == 0){
             isAllSlayed = true;

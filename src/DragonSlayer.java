@@ -20,6 +20,8 @@ public class DragonSlayer {
     private Set<String> defeatedDragons;
     private boolean isValid;
 
+    private boolean wantsToContinue;
+
 
     public DragonSlayer() {
         scan = new Scanner(System.in);
@@ -28,8 +30,9 @@ public class DragonSlayer {
         dragon = getDragon();
         playerTurn = true;
         numRooms = 0;
-        totalDragons = 0;
+        totalDragons = 7;
         isValid = true;
+        wantsToContinue = true;
     }
 
     //Getter and setter methods
@@ -70,38 +73,40 @@ public class DragonSlayer {
     /**
      * Gets a new room
      */
-    public Room getNewRoom()
+    public void getNewRoom()
     {
-        double rnd = Math.random();
-        if (rnd < .2)
+        double rnd = (Math.random() * 6) + 1;
+        if (rnd == 1)
         {
+            new Room();
             den.setLairName("Azul Sea of Terror");
-            return new Room();
+
         }
-        else if (rnd < .4)
+        else if (rnd == 2)
         {
+            new Room();
             den.setLairName("Emerald Green Jungle");
-            return new Room();
         }
-        else if (rnd < .6)
+        else if (rnd == 3)
         {
+            new Room();
             den.setLairName("Golden Death Desert");
-            return new Room();
+
         }
-        else if (rnd < .8)
+        else if (rnd == 4)
         {
+            new Room();
             den.setLairName("White Wraith Island");
-            return new Room();
         }
-        else if (rnd < 1.0)
+        else if (rnd == 5)
         {
+            new Room();
             den.setLairName("Black Soul Mountains");
-            return new Room();
         }
         else
         {
+            new Room();
             den.setLairName("Violet Delights Archipelago");
-            return new Room();
         }
     }
 
@@ -153,36 +158,48 @@ public class DragonSlayer {
             System.out.println("-------------------------------------------------------------------------------------------");
             displayBaseStats();
             setDragon(dragon);
-            numRooms++;
 
-            if (numRooms == 1){
-                System.out.println("You have ventured into your first room..." + "\n");
-            } else {
-                System.out.println("You have ventured into a new room..." + "\n");
-            }
-            System.out.println("Welcome to " + den.getLairName() + "!");
-            searchHealthPot();
-            System.out.println("Beware...there are " + den.getNumDragons() + " dragons in here...");
-            System.out.println("Here comes a dragon! " + dragon.getDragonName() + " is a level " + dragon.getDragonLevel());
-            System.out.println("--------------------------------------------------------------------------------------");
-            enterRoom();
+            while (wantsToContinue && !player.playerIsDead()) {
+                numRooms++;
+                System.out.println("You are now in your room: " + numRooms);
 
-            if (player.playerIsDead()){
-                System.out.println("Goodbye!");
-            } else {
-                System.out.println("Would you like to proceed into the next room? (y/n)");
-                String proceed = scan.nextLine();
-                if (proceed.equals("y")){
+                if (numRooms == 1){
+                    System.out.println("You have ventured into your first room..." + "\n");
+                } else {
+                    System.out.println("You have ventured into a new room..." + "\n");
                     getNewRoom();
-                    enterRoom();
-                } else  {
-                    System.out.println("Goodbye!");
+                    System.out.println(den.getLairName());
+                    den.setNumDragons(den.getNumDragons());
+                    setDragon(getDragon());
                 }
+
+                System.out.println("Welcome to " + den.getLairName() + "!");
+                searchHealthPot();
+                System.out.println("Beware...there are " + den.getNumDragons() + " dragons in here...");
+                System.out.println("Here comes a dragon! " + dragon.getDragonName() + " is a level " + dragon.getDragonLevel());
+                System.out.println("--------------------------------------------------------------------------------------");
+                enterRoom();
+
+                if (player.playerIsDead()){
+                    System.out.println("Goodbye!");
+                    wantsToContinue = false;
+                } else {
+                    System.out.println("Would you like to proceed into the next room? (y/n)");
+                    String proceed = scan.nextLine();
+                    if (proceed.equals("y")){
+                        wantsToContinue = true;
+                    } else  {
+                        wantsToContinue = false;
+                        System.out.println("Goodbye!");
+                    }
+                }
+
             }
 
         } else {
             System.out.println("That was an invalid input. Goodbye!");
             isValid = false;
+            wantsToContinue = false;
         }
     }
 
@@ -193,7 +210,7 @@ public class DragonSlayer {
      */
     public void enterRoom() {
 
-        while (isValid && !player.playerIsDead() && !den.getIsAllSlayed()) {
+        while (isValid && !player.playerIsDead() && !den.getIsAllSlayed() && wantsToContinue) {
             int playerAttack = player.getPlayerAttack();
             int dragonAttack = dragon.getDragonAttack();
 
@@ -218,8 +235,10 @@ public class DragonSlayer {
 
                 if (dragon.dragonIsDead()) {
                     addDefeatedDragon(dragon);
+                    System.out.println(defeatedDragons);
                     System.out.println("You defeated " + dragon.getDragonName() + "!");
                     den.slayedDragon();
+                    System.out.println("Number of dragons left: " + den.getNumDragons());
                     if (den.getNumDragons() > 0){
                         System.out.println("Don't celebrate too soon! There is still " + den.getNumDragons() + " more dragons...");
                         setDragon(getDragon());
@@ -250,21 +269,24 @@ public class DragonSlayer {
                         System.out.printf("You now have %s health left\n", player.getHealth());
                     } else {
                         System.out.println(dragon.getDragonName() + " has defeated you! You are DEAD.");
+
                     }
                 }
 
-                if (den.isRoomSearched() && !player.playerIsDead()){
+                if (den.isRoomSearched() && !player.playerIsDead() && player.getHealthPotStatus()){
                     System.out.println("Would you like to use your health pot now? (y/n)");
                     String healthPot = scan.nextLine();
                     if (healthPot.equals("y")){
                         player.addHealth(50);
                         System.out.println("You have used your health pot! Your health has been restored to " + player.getHealth());
-
+                        player.setHealthPotStatus(false);
                     } else {
                         System.out.println("Alright then, if you say so!");
                     }
-                } else {
+                } else if (den.isRoomSearched() && !player.playerIsDead() && !player.getHealthPotStatus()) {
                     System.out.println("You've already used your health pot!");
+                } else {
+                    System.out.println(":p no health pot");
                 }
 
                 promptEnterKey();
@@ -284,9 +306,11 @@ public class DragonSlayer {
             if (healthPotRandom == 1){
                 den.setRoomSearchedStatus(true);
                 System.out.println("You've successfully found a health pot! You may now choose to use it as you see fit during battle.");
+                player.setHealthPotStatus(true);
             } else {
                 den.setRoomSearchedStatus(false);
                 System.out.println("Unfortunately, there is no health pot in this room.");
+                player.setHealthPotStatus(false);
             }
         }
     }

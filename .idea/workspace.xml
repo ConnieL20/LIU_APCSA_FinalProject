@@ -3,11 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="ca58dfbb-e759-49b4-a827-e1cb8f814e70" name="Changes" comment="1. Implement the healthpot methods and winnings methods &#10;2. make the names more unique &#10;3. sword upgrades">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dragon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dragon.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DragonSlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DragonSlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Room.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sword.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sword.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

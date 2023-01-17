@@ -14,6 +14,7 @@ public class Player {
     private static String name;
 
     private int health;
+    private boolean healthStatus;
     private int gold;
     private boolean healthPotStatus;
     private Sword sword;
@@ -21,6 +22,7 @@ public class Player {
     public Player(String name){
         this.name = name;
         health = 100;
+        healthStatus = true;
         gold = 50;
         healthPotStatus = false;
         sword = new Sword();
@@ -41,6 +43,11 @@ public class Player {
 
     public boolean getHealthPotStatus(){
         return healthPotStatus;
+    }
+
+
+    public void setHealthPotStatus(boolean foundHealthPot){
+        healthPotStatus = foundHealthPot;
     }
 
     public Sword getSword(){
@@ -72,11 +79,11 @@ public class Player {
         int attackAmt = sword.getAttack();
         int buffer = (int)(Math.random() * 10) + 1;
 
-        if (generateSpellSuccess()){
+//        if (generateSpellSuccess()){
             attackAmt *= buffer;
-        } else {
-            attackAmt /= buffer;
-        }
+//        } else {
+//            attackAmt -= buffer;
+//        }
 
         return attackAmt;
     }
@@ -93,12 +100,14 @@ public class Player {
 
     }
 
+
     public boolean playerIsDead(){
         if (health > 0) {
-            return false;
+            healthStatus = false;
         } else {
-            return true;
+            healthStatus = true;
         }
+        return healthStatus;
     }
 
 }
