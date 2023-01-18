@@ -12,6 +12,7 @@ public class Room {
     private int numDragons;
     private boolean isAllSlayed;
     private boolean roomSearched;
+    private int healthPot;
 
     //constructor
     public Room(){
@@ -20,6 +21,7 @@ public class Room {
         numDragons = randomNumDragons;
         isAllSlayed = false;
         roomSearched = false;
+        healthPot = 1;
     }
 
 

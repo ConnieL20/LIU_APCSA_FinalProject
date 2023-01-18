@@ -62,6 +62,10 @@ public class Dragon {
     }
 
     //Getter and setter methods
+
+    public int getDragonBaseAtk(){
+        return attack;
+    }
     public int getDragonHealth() {
         return health;
     }

@@ -56,8 +56,8 @@ public class Player {
         return sword;
     }
 
-    public void addHealth(int damage){
-        health += damage;
+    public void addHealth(int moreHealth){
+        health += moreHealth;
     }
 
     public void subtractHealth(int damage){
@@ -102,8 +102,13 @@ public class Player {
 
     }
 
-    public void resetHealth(){
+    public void resetEverything(){
         health = 100;
+        healthStatus = true;
+        gold = 50;
+        healthPotStatus = false;
+        sword = new Sword();
+        dragonScalesBalance = 0;
     }
 
     public boolean getHealthStatus(){
