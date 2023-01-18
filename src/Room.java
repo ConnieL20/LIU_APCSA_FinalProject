@@ -15,7 +15,7 @@ public class Room {
 
     //constructor
     public Room(){
-        lairName = "Crimson Blood Keep";
+        lairName = "";
         int randomNumDragons = (int)(Math.random() * 2) + 1;
         numDragons = randomNumDragons;
         isAllSlayed = false;

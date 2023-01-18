@@ -18,6 +18,7 @@ public class Player {
     private int gold;
     private boolean healthPotStatus;
     private Sword sword;
+    private int dragonScalesBalance;
     //Constructor
     public Player(String name){
         this.name = name;
@@ -26,6 +27,7 @@ public class Player {
         gold = 50;
         healthPotStatus = false;
         sword = new Sword();
+        dragonScalesBalance = 0;
     }
 
     //Getter and setter methods
@@ -67,7 +69,7 @@ public class Player {
     }
 
     public void subtractGold(int newGold){
-        gold += newGold;
+        gold -= newGold;
     }
 
 
@@ -79,11 +81,11 @@ public class Player {
         int attackAmt = sword.getAttack();
         int buffer = (int)(Math.random() * 10) + 1;
 
-//        if (generateSpellSuccess()){
+        if (generateSpellSuccess()){
             attackAmt *= buffer;
-//        } else {
-//            attackAmt -= buffer;
-//        }
+       } else {
+           attackAmt /= 2;
+        }
 
         return attackAmt;
     }
@@ -100,6 +102,14 @@ public class Player {
 
     }
 
+    public void resetHealth(){
+        health = 100;
+    }
+
+    public boolean getHealthStatus(){
+        return healthStatus;
+    }
+
 
     public boolean playerIsDead(){
         if (health > 0) {
@@ -108,6 +118,19 @@ public class Player {
             healthStatus = true;
         }
         return healthStatus;
+    }
+
+
+    public void subtractDragonScales(int scales){
+        dragonScalesBalance -= scales;
+    }
+
+    public int getDragonScalesBalance(){
+        return dragonScalesBalance;
+    }
+
+    public void addDragonScales(int scales){
+        dragonScalesBalance = scales;
     }
 
 }

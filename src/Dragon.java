@@ -16,6 +16,7 @@ public class Dragon {
     private String dragonName;
     private int level;
     private int attack;
+    private int dragonScales;
 
     //Constructor
     public Dragon(String dragonName, int level){
@@ -23,6 +24,15 @@ public class Dragon {
         this.dragonName = dragonName;
         this.level = level;
         attack = 30;
+
+        int randomScales = 0;
+        if (level > 2){
+            randomScales = (int)(Math.random() * 41) + 20;
+        } else {
+            randomScales = (int)(Math.random() * 11) + 10;
+        }
+        dragonScales = randomScales;
+
     }
 
 
@@ -67,6 +77,12 @@ public class Dragon {
     public void subtractDragonHealth(int damage){
         health -= damage;
     }
+
+    public int getDragonScales(){
+        return dragonScales;
+    }
+
+
 
 
 

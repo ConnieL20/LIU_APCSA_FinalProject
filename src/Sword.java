@@ -9,7 +9,7 @@ public class Sword {
 
     //Instance variables
     private int attack;
-    private double dodge;
+    private int dodge;
 
     //Constructor
     public Sword() {
@@ -22,12 +22,16 @@ public class Sword {
         return attack;
     }
 
-    public double getDodge(){
+    public int getDodge(){
         return dodge;
     }
 
     public void setAttack(int newAttack){
         attack = newAttack;
+    }
+
+    public void setDodge(int newDodge){
+        dodge = newDodge;
     }
 
 }
