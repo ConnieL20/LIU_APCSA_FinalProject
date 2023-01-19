@@ -42,10 +42,6 @@ public class Room {
         return lairName;
     }
 
-    public void setLairName(String currentLairName){
-        lairName = currentLairName;
-    }
-
     public int getNumDragons(){
         return numDragons;
     }

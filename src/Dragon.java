@@ -35,19 +35,6 @@ public class Dragon {
 
     }
 
-
-
-    /**
-     * boolean that checks if a dragon is dead or not
-     */
-    public boolean dragonIsDead() {
-        if (health > 0){
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     /**
      * Method for calculating the attack amount of the dragon
      * @return
@@ -62,10 +49,6 @@ public class Dragon {
     }
 
     //Getter and setter methods
-
-    public int getDragonBaseAtk(){
-        return attack;
-    }
     public int getDragonHealth() {
         return health;
     }
@@ -85,6 +68,20 @@ public class Dragon {
     public int getDragonScales(){
         return dragonScales;
     }
+
+
+
+    /**
+     * boolean that checks if a dragon is dead or not
+     */
+    public boolean dragonIsDead() {
+        if (health > 0){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 
 
 

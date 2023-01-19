@@ -19,18 +19,19 @@ public class DragonSlayer {
     private static int topScore;
     private boolean playerTurn;
     private int numRooms;
-    private Set<String> defeatedDragons; //testing purposes
     private Set<String> listOfDragons;
     private Set<String> listOfDens;
     private boolean isValid;
 
     private boolean wantsToContinue;
     private boolean playAgain;
+    private boolean playerWon;
 
 
+
+    //Constructor
     public DragonSlayer() {
         scan = new Scanner(System.in);
-        defeatedDragons = new HashSet<>();
         listOfDragons = new HashSet<>(Arrays.asList("Toothless", "Mushu", "Maleficent", "Dvalin", "Stormfly", "Morax", "Azhdaha"));
         listOfDens = new HashSet<>(Arrays.asList("Crimson Blood Keep", "Azul Sea of Terror","Emerald Green Jungle","Golden Death Desert", "White Wraith Island","Black Soul Mountains","Violet Delights Archipelago"));
         den = getNewRoom();
@@ -41,11 +42,33 @@ public class DragonSlayer {
         isValid = true;
         wantsToContinue = true;
         playAgain = true;
+        playerWon = false;
         score = 0;
         topScore = 0;
     }
 
-    //Getter and setter methods
+    //Static methods
+
+    /**
+     * method to make the code print slower
+     * gives player more time to read everything
+     * @param ms
+     */
+    private static void wait(int ms) {
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    //Getter and Setter methods
+
+    /**
+     * this method gets or prepares a new dragon with a dragon name from a dragon that is still alive.
+     * this method is implemented everytime a dragon dies.
+     * @return
+     */
     private Dragon getDragon() {
 
         String[] dragonNames = listOfDragons.toArray(new String[listOfDragons.size()]);
@@ -68,14 +91,7 @@ public class DragonSlayer {
     }
 
     /**
-     * sets den to the new room created in getNewRoom()
-     */
-    private void setDen(){
-        den = getNewRoom();
-    }
-
-    /**
-     * Gets a new room
+     * Gets a new room and names it a name that has not yet been used
      */
     private Room getNewRoom()
     {
@@ -89,20 +105,25 @@ public class DragonSlayer {
     }
 
 
+    /**
+     * sets den to the new room created in getNewRoom()
+     */
+    private void setDen(){
+        den = getNewRoom();
+    }
+
+    /**
+     * sets the current dragon the player is fighting with to another dragon
+     * @param newDragon
+     */
     private void setDragon(Dragon newDragon) {
         dragon = newDragon;
     }
 
     /**
-     * method to ensure that the same dragon and level does not get used again
-     * The dragonName and its level will be placed in the HashMap
+     * when the player dies and wants to restart the game, this method is called to "reset" all the game's memories
      */
-    private void addDefeatedDragon(Dragon dragon) {
-        defeatedDragons.add(dragon.getDragonName());
-    }
-
     private void resetStats(){
-        defeatedDragons = new HashSet<>();
         listOfDragons = new HashSet<>(Arrays.asList("Toothless", "Mushu", "Maleficent", "Dvalin", "Stormfly", "Morax", "Azhdaha"));
         listOfDens = new HashSet<>(Arrays.asList("Crimson Blood Keep", "Azul Sea of Terror","Emerald Green Jungle","Golden Death Desert", "White Wraith Island","Black Soul Mountains","Violet Delights Archipelago"));
         den = getNewRoom();
@@ -113,12 +134,16 @@ public class DragonSlayer {
         isValid = true;
         wantsToContinue = true;
         playAgain = true;
+        playerWon = false;
 
     }
 
 
+
+    //Instance Methods that carry out the actual game logic
+
     /**
-     * This method will greet the player
+     * This method will greet the player and display the rules
      */
     private void greeting() {
         System.out.print("Welcome to Dragon Slayer Game! Please enter your name: ");
@@ -139,6 +164,10 @@ public class DragonSlayer {
 
     }
 
+    /**
+     * this method executes the game and contains the enterRoom() method
+     * checks if the player can still enter into the next room or is done with the game when all dragons have been slayed within 5 rooms
+     */
     public void play() {
         greeting();
         String answer = scan.nextLine();
@@ -190,19 +219,24 @@ public class DragonSlayer {
                     }
 
                 } else {
-                    System.out.println("Would you like to proceed into the next room? (y/n)");
-                    String proceed = scan.nextLine();
-                    if (proceed.equals("y")){
-                        wantsToContinue = true;
-                        listOfDens.remove(den.getLairName());
-                        System.out.println(listOfDens);
-                        if (player.getHealthPotStatus()){
-                            System.out.println("Because you did not use your health pot, it has been discarded!");
+                    if (checkWinnings()) {
+                        System.out.println("Congratulations!!! You saved all of us.");
+                        displayStats();
+                    } else {
+                        System.out.println("Would you like to proceed into the next room? (y/n)");
+                        String proceed = scan.nextLine();
+                        if (proceed.equals("y")){
+                            wantsToContinue = true;
+                            listOfDens.remove(den.getLairName());
+                            if (player.getHealthPotStatus()){
+                                System.out.println("Because you did not use your health pot, it has been discarded!");
+                            }
+                        } else  {
+                            wantsToContinue = false;
+                            System.out.println("Goodbye!");
                         }
-                    } else  {
-                        wantsToContinue = false;
-                        System.out.println("Goodbye!");
                     }
+
                     System.out.println("--------------------------------------------------------------------------------------");
                 }
 
@@ -213,6 +247,8 @@ public class DragonSlayer {
             isValid = false;
             wantsToContinue = false;
         }
+
+
     }
 
     /**
@@ -247,8 +283,6 @@ public class DragonSlayer {
 
                 if (dragon.dragonIsDead()) {
 
-                    addDefeatedDragon(dragon);
-                    System.out.println(defeatedDragons);
                     System.out.println("You defeated " + dragon.getDragonName() + "!");
                     den.slayedDragon();
                     listOfDragons.remove(dragon.getDragonName());
@@ -277,7 +311,7 @@ public class DragonSlayer {
                 System.out.printf("It attacks with %s attack points!\n", dragonAttack);
 
                 int randomDodge = (int)(Math.random() * 20) + 1;
-                if (randomDodge >= sword.getDodge()/2){
+                if (randomDodge <= sword.getDodge()/2){
                     System.out.println("The dragon swipes and you dodge!");
                 } else {
                     player.subtractHealth(dragonAttack);
@@ -314,51 +348,58 @@ public class DragonSlayer {
         }
     }
 
+    /**
+     * the menu that displays for the player to decide what they want to upgrade or buy after a dragon dies
+     * it is also the method where the player's score (AKA dragon scales) is calculated
+     *      - if the player chooses not to buy or upgrade anything, dragon scales are added to their score
+     *      - else, no dragon scales are added
+     */
+
     private void purchaseMenu(){
         System.out.println(dragon.getDragonName() + " has dropped " + dragon.getDragonScales() + " scales!");
 
         if (player.getGold() < 10){
             System.out.println("Unfortunately, you don't have enough money to even browse the menu! :p");
-        }
+        } else {
+            System.out.println("\nHere are you options:\n1. 10 Gold to double your current health.\n2. 20 Gold to double your base sword attack.\n3. 30 Gold to double your dodge rate.\n4. Trade in half of your dragon scales for 50 more pieces of gold.\n5. Do nothing and keep your dragon scales!");
+            System.out.println("\nType in the corresponding answer number (i.e. 1, 2, 3...)");
+            String purchase = scan.nextLine();
 
-        System.out.println("\nHere are you options:\n1. 10 Gold to double your current health.\n2. 20 Gold to double your base sword attack.\n3. 30 Gold to double your dodge rate.\n4. Trade in half of your dragon scales for 50 more pieces of gold.\n5. Do nothing and keep your dragon scales!");
-        System.out.println("\nType in the corresponding answer number (i.e. 1, 2, 3...)");
-        String purchase = scan.nextLine();
+            if (purchase.equals("1")){
 
-        if (purchase.equals("1")){
+                player.subtractGold(10);
+                player.addHealth(player.getHealth());
+                System.out.println("Your current health is now: " + player.getHealth());
 
-            player.subtractGold(10);
-            player.addHealth(player.getHealth());
-            System.out.println("Your current health is now: " + player.getHealth());
+            } else if (purchase.equals("2")){
 
-        } else if (purchase.equals("2")){
+                if (player.getGold() < 20) {
+                    System.out.println("You don't have enough gold! Dragon scales are automatically added to your score.");
+                } else {
+                    player.subtractGold(20);
+                    sword.setAttack(sword.getAttack() * 2);
+                    System.out.println("Your current base sword attack is now: " + sword.getAttack());
+                }
 
-            if (player.getGold() < 20) {
-                System.out.println("You don't have enough gold! Dragon scales are automatically added to your score.");
-            } else {
-                player.subtractGold(20);
-                sword.setAttack(sword.getAttack() * 2);
-                System.out.println("Your current base sword attack is now: " + sword.getAttack());
-            }
+            } else if (purchase.equals("3")){
 
-        } else if (purchase.equals("3")){
+                if (player.getGold() < 30) {
+                    System.out.println("You don't have enough gold! Dragon scales are automatically added to your score.");
+                } else {
+                    player.subtractGold(30);
+                    sword.setDodge(sword.getDodge() * 2);
+                    System.out.println("Your current dodge rate is now: " + sword.getDodge());
+                }
 
-            if (player.getGold() < 30) {
-                System.out.println("You don't have enough gold! Dragon scales are automatically added to your score.");
-            } else {
-                player.subtractGold(30);
-                sword.setDodge(sword.getDodge() * 2);
-                System.out.println("Your current dodge rate is now: " + sword.getDodge());
-            }
-
-        } else if (purchase.equals("4")){
+            } else if (purchase.equals("4")){
 
                 player.subtractDragonScales(player.getDragonScalesBalance()/2);
                 player.addGold(50);
 
-        } else {
-            player.addDragonScales(dragon.getDragonScales());
-            System.out.println("Ok then! You get to keep your dragon scales. They are now added to your total score!");
+            } else {
+                player.addDragonScales(dragon.getDragonScales());
+                System.out.println("Ok then! You get to keep your dragon scales. They are now added to your total score!");
+            }
         }
 
         System.out.println("Your current gold balance is now: " + player.getGold());
@@ -367,6 +408,10 @@ public class DragonSlayer {
 
     }
 
+    /**
+     * this method asks the player if they want to search the room for a health pot
+     * randomly decides if the player finds one in the room
+     */
     private void searchHealthPot(){
         System.out.println("Would you like to search the room for a health pot? You can save and use it to heal yourself during battle! (y/n)");
         String answer = scan.nextLine();
@@ -386,21 +431,30 @@ public class DragonSlayer {
         }
     }
 
+    /**
+     * checks if the player has won
+     */
+    public boolean checkWinnings(){
+        if (!player.playerIsDead() && numRooms <= 5 && listOfDragons.size() == 0){
+            playerWon = true;
+        }
+        return playerWon;
+    }
+
+    /**
+     * displays the current stats of the player (health, attack, dodge, currency, and dragon scales)
+     */
     private void displayStats(){
         System.out.println("Here are your stats:");
-        System.out.println("- Your health is: " + player.getHealth() + "\n- Your current sword attack is: " + sword.getAttack() + " (you can increase it when you clear a room)!\n- Your dodge rate is: " + sword.getDodge() + "%\n- You currently have: " + player.getGold() + " gold.");
+        System.out.println("- Your health is: " + player.getHealth() + "\n- Your current sword attack is: " + sword.getAttack() + " (you can increase it when you clear a room)!\n- Your dodge rate is: " + sword.getDodge() + "%\n- You currently have: " + player.getGold() + " gold.\n- You current have: " + player.getDragonScalesBalance() + " dragon scales.");
         System.out.println("** During battle, you can choose to cast a spell to temporarily increase your sword attack (beware, it might decrease it :p)! **");
         System.out.println("** Each Dragon starts off with a base health of 100 and base attack of 30 (which they can increase during battle) **\n");
     }
 
-    private static void wait(int ms) {
-        try {
-            Thread.sleep(ms);
-        } catch (InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
-    }
 
+    /**
+     * method that prompts the player to hit enter to continue
+     */
     private void promptEnterKey(){
         System.out.println("Press \"ENTER\" to continue...");
         scan.nextLine();

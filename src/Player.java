@@ -90,29 +90,15 @@ public class Player {
         return attackAmt;
     }
 
-    public boolean generateSpellSuccess(){
 
-        int successRate = (int)(Math.random() * 2) + 1;
-        if (successRate == 1){
-            return false;
-        } else {
-            return true;
-        }
-
-
-    }
 
     public void resetEverything(){
         health = 100;
         healthStatus = true;
         gold = 50;
         healthPotStatus = false;
-        sword = new Sword();
+        sword.setAttack(10);
         dragonScalesBalance = 0;
-    }
-
-    public boolean getHealthStatus(){
-        return healthStatus;
     }
 
 
@@ -138,4 +124,15 @@ public class Player {
         dragonScalesBalance += scales;
     }
 
+    private boolean generateSpellSuccess(){
+
+        int successRate = (int)(Math.random() * 2) + 1;
+        if (successRate == 1){
+            return false;
+        } else {
+            return true;
+        }
+
+
+    }
 }
