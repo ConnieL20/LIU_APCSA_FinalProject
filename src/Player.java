@@ -135,7 +135,7 @@ public class Player {
     }
 
     public void addDragonScales(int scales){
-        dragonScalesBalance = scales;
+        dragonScalesBalance += scales;
     }
 
 }

@@ -15,8 +15,8 @@ public class Room {
     private int healthPot;
 
     //constructor
-    public Room(){
-        lairName = "";
+    public Room(String lairName){
+        this.lairName = lairName;
         int randomNumDragons = (int)(Math.random() * 2) + 1;
         numDragons = randomNumDragons;
         isAllSlayed = false;

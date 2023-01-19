@@ -79,44 +79,13 @@ public class DragonSlayer {
      */
     private Room getNewRoom()
     {
-        double rnd = (int)(Math.random() * 7) + 1;
-        if (rnd == 1)
-        {
-            den = new Room();
-            den.setLairName("Azul Sea of Terror");
 
-        }
-        else if (rnd == 2)
-        {
-            den = new Room();
-            den.setLairName("Emerald Green Jungle");
-        }
-        else if (rnd == 3)
-        {
-            den = new Room();
-            den.setLairName("Golden Death Desert");
+        String[] denNames = listOfDens.toArray(new String[listOfDens.size()]);
+        String denName = "";
+        int randomDenName = (int)(Math.random() * listOfDens.size() - 1);
+        denName = denNames[randomDenName];
 
-        }
-        else if (rnd == 4)
-        {
-            den = new Room();
-            den.setLairName("White Wraith Island");
-        }
-        else if (rnd == 5)
-        {
-            den = new Room();
-            den.setLairName("Black Soul Mountains");
-        }
-        else if (rnd == 6)
-        {
-            den = new Room();
-            den.setLairName("Violet Delights Archipelago");
-        } else
-        {
-            den = new Room();
-            den.setLairName("Crimson Blood Keep");
-        }
-        return den;
+        return new Room(denName);
     }
 
 
@@ -160,10 +129,10 @@ public class DragonSlayer {
         sword = player.getSword();
         System.out.println("-------------------------------------------------------------------------------------------");
         System.out.println("Greetings " + player.getName() + "! We have been awaiting for your arrival. Dragons have plagued our kingdom and we need your help to slay them!");
-        System.out.println("With each dragon you slay, you gain a certain amount of dragon scales. With them, you can get a sword upgrade, increase dodge rate, or regain a fraction of your health!\n");
+        System.out.println("With each dragon you slay, you gain a random amount of dragon scales. These will become your score at the end of each game and how you define your top score!\n");
         System.out.println("Kill all dragons within FIVE lairs (AKA Rooms) to save us!");
         System.out.println("." + "\n" + "." + "\n" + ".");
-        System.out.println("What's that? You want...a reward? Err...you could also get more gold by trading in some dragon scales?");
+        System.out.println("What's that? You want...a reward? Err...here's some gold, you can get a sword upgrade, increase dodge rate, or regain a fraction of your health by spending them! You could also get more gold by trading in some dragon scales?");
         System.out.println("." + "\n" + "." + "\n" + ".");
         System.out.println("O-oh you accept? *mumbles* What a little sh-" + "\n");
         System.out.print("Silly me! We must keep this school-friendly. Well then, brave warrior, enter 'y' to venture on! ");
@@ -178,7 +147,7 @@ public class DragonSlayer {
             System.out.println("-------------------------------------------------------------------------------------------");
             setDragon(dragon);
 
-            while (numRooms <= 5 && wantsToContinue && !player.playerIsDead() && playAgain && totalDragons > 0) {
+            while (numRooms <= 5 && wantsToContinue && !player.playerIsDead() && playAgain && listOfDragons.size() > 0) {
                 numRooms++;
                 System.out.println("You are now in your room: " + numRooms);
 
@@ -187,14 +156,20 @@ public class DragonSlayer {
                 } else {
                     System.out.println("You have ventured into a new room..." + "\n");
                     setDen();
-                    System.out.println(den.getLairName());
-                    den.setNumDragons(den.getNumDragons());
                     setDragon(getDragon());
+                    if (numRooms == 4 && listOfDragons.size() < 6){
+                        den.setNumDragons(2);
+                    } else if (numRooms == 5) {
+                        den.setNumDragons(listOfDragons.size());
+                    } else {
+                        den.setNumDragons(den.getNumDragons());
+                    }
+
                 }
 
-                System.out.println("Welcome to " + den.getLairName() + "!");
-                searchHealthPot();
+                System.out.println("Welcome to " + den.getLairName() + "!\n");
                 displayStats();
+                searchHealthPot();
                 System.out.println("Beware...there are " + den.getNumDragons() + " dragons in here...");
                 System.out.println("Here comes a dragon! " + dragon.getDragonName() + " is a level " + dragon.getDragonLevel());
                 System.out.println("--------------------------------------------------------------------------------------");
@@ -215,11 +190,12 @@ public class DragonSlayer {
                     }
 
                 } else {
-                    displayStats();
                     System.out.println("Would you like to proceed into the next room? (y/n)");
                     String proceed = scan.nextLine();
                     if (proceed.equals("y")){
                         wantsToContinue = true;
+                        listOfDens.remove(den.getLairName());
+                        System.out.println(listOfDens);
                         if (player.getHealthPotStatus()){
                             System.out.println("Because you did not use your health pot, it has been discarded!");
                         }
@@ -272,7 +248,6 @@ public class DragonSlayer {
                 if (dragon.dragonIsDead()) {
 
                     addDefeatedDragon(dragon);
-                    listOfDragons.remove(dragon.getDragonName());
                     System.out.println(defeatedDragons);
                     System.out.println("You defeated " + dragon.getDragonName() + "!");
                     den.slayedDragon();
@@ -341,7 +316,6 @@ public class DragonSlayer {
 
     private void purchaseMenu(){
         System.out.println(dragon.getDragonName() + " has dropped " + dragon.getDragonScales() + " scales!");
-        player.addDragonScales(dragon.getDragonScales());
 
         if (player.getGold() < 10){
             System.out.println("Unfortunately, you don't have enough money to even browse the menu! :p");
@@ -379,19 +353,17 @@ public class DragonSlayer {
 
         } else if (purchase.equals("4")){
 
-            if (player.getGold() < 40){
-                System.out.println("You don't have enough gold! Dragon scales are automatically added to your score.");
-            } else {
                 player.subtractDragonScales(player.getDragonScalesBalance()/2);
                 player.addGold(50);
-            }
 
         } else {
-            System.out.println("Alright then! Nothing shall be done.");
-            System.out.println("You currently have " + player.getDragonScalesBalance() + " dragon scales!");
+            player.addDragonScales(dragon.getDragonScales());
+            System.out.println("Ok then! You get to keep your dragon scales. They are now added to your total score!");
         }
 
         System.out.println("Your current gold balance is now: " + player.getGold());
+        System.out.println("You currently have " + player.getDragonScalesBalance() + " dragon scales!");
+
 
     }
 
@@ -418,7 +390,7 @@ public class DragonSlayer {
         System.out.println("Here are your stats:");
         System.out.println("- Your health is: " + player.getHealth() + "\n- Your current sword attack is: " + sword.getAttack() + " (you can increase it when you clear a room)!\n- Your dodge rate is: " + sword.getDodge() + "%\n- You currently have: " + player.getGold() + " gold.");
         System.out.println("** During battle, you can choose to cast a spell to temporarily increase your sword attack (beware, it might decrease it :p)! **");
-        System.out.println("**Each Dragon starts off with a base health of 100 and base attack of 30 (which they can increase during battle)**");
+        System.out.println("** Each Dragon starts off with a base health of 100 and base attack of 30 (which they can increase during battle) **\n");
     }
 
     private static void wait(int ms) {
