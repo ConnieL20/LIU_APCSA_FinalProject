@@ -141,8 +141,6 @@ public class DragonSlayer {
         playAgain = true;
         playerWon = false;
         score = 0;
-        topScore = 0;
-
     }
 
 
@@ -193,10 +191,12 @@ public class DragonSlayer {
                     System.out.println("You have ventured into your first room..." + "\n");
                 } else {
                     System.out.println("You have ventured into a new room..." + "\n");
+
                     setDen();
                     setDragon(getDragon());
-                    if (numRooms == 4 && listOfDragons.size() < 6){
-                        den.setNumDragons(2);
+
+                    if (numRooms == 4 && listOfDragons.size() < 2){
+                        den.setNumDragons(1);
                     } else if (numRooms == 5) {
                         den.setNumDragons(listOfDragons.size());
                     } else {
@@ -228,17 +228,16 @@ public class DragonSlayer {
                     } else if (playerPlaysAgain.equals("y")){
                         wantsToContinue = true;
                         playAgain = true;
-                        //clearConsole();
                         player.resetEverything();
                         resetStats();
                     }
                 } else {
                     if (checkWinnings()) {
-                        System.out.println("\nCONGRATULATIONS!!! You saved all of us.");
+                        System.out.println("--------------------------------------------------------------------------------------");
+                        System.out.println("CONGRATULATIONS!!! You have saved us all! Maybe you weren't a little sh-\nOh my! I almost slipped up again ;)\nWe hope to see you again!");
                         System.out.println("--------------------------------------------------------------------------------------");
                         System.out.println("SCORE BOARD:");
                         scoreBoard();
-                        System.out.println("--------------------------------------------------------------------------------------");
                     } else {
                         System.out.print("Would you like to proceed into the next room? (y/n) ");
                         String proceed = scan.nextLine();
@@ -313,6 +312,7 @@ public class DragonSlayer {
                     if (den.getNumDragons() > 0){
                         System.out.println("Don't celebrate too soon! There is still " + den.getNumDragons() + " more dragons...");
                         setDragon(getDragon());
+                        System.out.println("In flies " + dragon.getDragonName() + "! It's a level " + dragon.getDragonLevel());
                     } else {
                         break;
                     }
@@ -330,7 +330,7 @@ public class DragonSlayer {
                 System.out.printf("It attacks with %s attack points!\n", dragonAttack);
 
                 int randomDodge = (int)(Math.random() * sword.getDodge()) + 1;
-                if (randomDodge < sword.getDodge()/2){
+                if (randomDodge <= sword.getDodge()/2){
                     System.out.println("The dragon swipes and you dodge!");
                 } else {
                     player.subtractHealth(dragonAttack);

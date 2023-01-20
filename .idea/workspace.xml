@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ca58dfbb-e759-49b4-a827-e1cb8f814e70" name="Changes" comment="1. Implement the healthpot methods and winnings methods &#10;2. make the names more unique &#10;3. sword upgrades">
+    <list default="true" id="ca58dfbb-e759-49b4-a827-e1cb8f814e70" name="Changes" comment="1. dont print menu if no have money &#10;2. work on the ending of the game (congrats message and storing top score)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DragonSlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DragonSlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
@@ -81,7 +81,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673759947543</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="1. dont print menu if no have money &#10;2. work on the ending of the game (congrats message and storing top score)">
+      <created>1674180291367</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1674180291367</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -99,6 +106,7 @@
     <MESSAGE value="Work on the loop &#10;start the room class" />
     <MESSAGE value="Work on the loop" />
     <MESSAGE value="1. Implement the healthpot methods and winnings methods &#10;2. make the names more unique &#10;3. sword upgrades" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. Implement the healthpot methods and winnings methods &#10;2. make the names more unique &#10;3. sword upgrades" />
+    <MESSAGE value="1. dont print menu if no have money &#10;2. work on the ending of the game (congrats message and storing top score)" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. dont print menu if no have money &#10;2. work on the ending of the game (congrats message and storing top score)" />
   </component>
 </project>
