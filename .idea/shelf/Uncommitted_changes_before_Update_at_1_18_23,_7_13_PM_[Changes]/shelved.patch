@@ -1,0 +1,52 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"ca58dfbb-e759-49b4-a827-e1cb8f814e70\" name=\"Changes\" comment=\"1. Implement the healthpot methods and winnings methods &#10;2. make the names more unique &#10;3. sword upgrades\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/Dragon.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Dragon.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/DragonSlayer.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/DragonSlayer.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/Player.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Player.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/Room.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Room.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/Sword.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Sword.java\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Class\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"MarkdownSettingsMigration\">\n    <option name=\"stateVersion\" value=\"1\" />\n  </component>\n  <component name=\"ProjectId\" id=\"2KELSCd7FxBkF0p11MLqNU4M6NK\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">{\n  &quot;keyToString&quot;: {\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;\n  }\n}</component>\n  <component name=\"RunManager\">\n    <configuration name=\"DragonRunner\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"DragonRunner\" />\n      <module name=\"LIU_APCSA_FinalProject\" />\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Application.DragonRunner\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"ca58dfbb-e759-49b4-a827-e1cb8f814e70\" name=\"Changes\" comment=\"\" />\n      <created>1673534794378</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1673534794378</updated>\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"Work on the loop &#10;start the room class\">\n      <created>1673566290526</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1673566290526</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"Work on the loop\">\n      <created>1673641826898</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1673641826898</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"1. Implement the healthpot methods and winnings methods &#10;2. make the names more unique &#10;3. sword upgrades\">\n      <created>1673759947543</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1673759947543</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"4\" />\n    <servers />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"Work on the loop &#10;start the room class\" />\n    <MESSAGE value=\"Work on the loop\" />\n    <MESSAGE value=\"1. Implement the healthpot methods and winnings methods &#10;2. make the names more unique &#10;3. sword upgrades\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"1. Implement the healthpot methods and winnings methods &#10;2. make the names more unique &#10;3. sword upgrades\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision acc8d87a8db037729df108118983bd1e807c88f3)
++++ b/.idea/workspace.xml	(date 1674005857556)
+@@ -1,14 +1,7 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="ca58dfbb-e759-49b4-a827-e1cb8f814e70" name="Changes" comment="1. Implement the healthpot methods and winnings methods &#10;2. make the names more unique &#10;3. sword upgrades">
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/Dragon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dragon.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/DragonSlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DragonSlayer.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Room.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/Sword.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sword.java" afterDir="false" />
+-    </list>
++    <list default="true" id="ca58dfbb-e759-49b4-a827-e1cb8f814e70" name="Changes" comment="1. figure out the top score system (dragon scales)&#10;2. array for dragons and rooms" />
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -83,7 +76,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1673759947543</updated>
+     </task>
+-    <option name="localTasksCounter" value="4" />
++    <task id="LOCAL-00004" summary="1. figure out the top score system (dragon scales)&#10;2. array for dragons and rooms">
++      <created>1674005845477</created>
++      <option name="number" value="00004" />
++      <option name="presentableId" value="LOCAL-00004" />
++      <option name="project" value="LOCAL" />
++      <updated>1674005845477</updated>
++    </task>
++    <option name="localTasksCounter" value="5" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+@@ -101,6 +101,7 @@
+     <MESSAGE value="Work on the loop &#10;start the room class" />
+     <MESSAGE value="Work on the loop" />
+     <MESSAGE value="1. Implement the healthpot methods and winnings methods &#10;2. make the names more unique &#10;3. sword upgrades" />
+-    <option name="LAST_COMMIT_MESSAGE" value="1. Implement the healthpot methods and winnings methods &#10;2. make the names more unique &#10;3. sword upgrades" />
++    <MESSAGE value="1. figure out the top score system (dragon scales)&#10;2. array for dragons and rooms" />
++    <option name="LAST_COMMIT_MESSAGE" value="1. figure out the top score system (dragon scales)&#10;2. array for dragons and rooms" />
+   </component>
+ </project>
+\ No newline at end of file
