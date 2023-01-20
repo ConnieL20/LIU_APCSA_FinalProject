@@ -84,7 +84,7 @@ public class Player {
         if (generateSpellSuccess()){
             attackAmt *= buffer;
        } else {
-           attackAmt /= 2;
+           attackAmt += 5;
         }
 
         return attackAmt;
