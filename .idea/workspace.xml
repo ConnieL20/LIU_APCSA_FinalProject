@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ca58dfbb-e759-49b4-a827-e1cb8f814e70" name="Changes" comment="1. dont print menu if no have money &#10;2. work on the ending of the game (congrats message and storing top score)">
+    <list default="true" id="ca58dfbb-e759-49b4-a827-e1cb8f814e70" name="Changes" comment="1. implement scoring system &#10;2. debuff player a bit more &#10;3. comment and organize code &#10;4. lairs needa be removed">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_17_23__4_34_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_17_23__4_34_PM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_18_23__7_13_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_18_23__7_13_PM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_19_23__3_13_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_19_23__3_13_PM__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DragonSlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DragonSlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
@@ -30,13 +33,12 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="DragonRunner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="DragonRunner" />
@@ -81,14 +83,7 @@
       <option name="project" value="LOCAL" />
       <updated>1673759947543</updated>
     </task>
-    <task id="LOCAL-00004" summary="1. dont print menu if no have money &#10;2. work on the ending of the game (congrats message and storing top score)">
-      <created>1674180291367</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1674180291367</updated>
-    </task>
-    <option name="localTasksCounter" value="5" />
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -106,7 +101,6 @@
     <MESSAGE value="Work on the loop &#10;start the room class" />
     <MESSAGE value="Work on the loop" />
     <MESSAGE value="1. Implement the healthpot methods and winnings methods &#10;2. make the names more unique &#10;3. sword upgrades" />
-    <MESSAGE value="1. dont print menu if no have money &#10;2. work on the ending of the game (congrats message and storing top score)" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. dont print menu if no have money &#10;2. work on the ending of the game (congrats message and storing top score)" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. Implement the healthpot methods and winnings methods &#10;2. make the names more unique &#10;3. sword upgrades" />
   </component>
 </project>

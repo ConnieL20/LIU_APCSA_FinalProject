@@ -22,7 +22,7 @@ public class Player {
     //Constructor
     public Player(String name){
         this.name = name;
-        health = 1000;
+        health = 100;
         healthStatus = true;
         gold = 50;
         healthPotStatus = false;
