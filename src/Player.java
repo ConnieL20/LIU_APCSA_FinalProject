@@ -1,14 +1,4 @@
 public class Player {
-    /**
-     * Used to create the player.
-     * Should store the player’s name, health, gold, health pot status (has one or doesn’t), and sword (Sword class).
-     * Should have methods to attack (including determine attack amount), handle an incoming attack (including updating
-     * the player’s own health), and use a health pot (if the player is carrying one).
-     * You should also consider including methods related to menu options that deal with the player, such as checking
-     * player health level or the player’s sword stats.
-     * Should include any other static or instance variables and/or methods, including getters/setters and private helper
-     * methods, that you determine are necessary to implement the requirements.
-     */
 
     //Instance variables
     private static String name;
@@ -72,7 +62,20 @@ public class Player {
         gold -= newGold;
     }
 
+    public void subtractDragonScales(int scales){
+        dragonScalesBalance -= scales;
+    }
 
+    public int getDragonScalesBalance(){
+        return dragonScalesBalance;
+    }
+
+    public void addDragonScales(int scales){
+        dragonScalesBalance += scales;
+    }
+
+
+    //Instance methods
     /**
      * This method determines the attack amount for the Player
      * Displays the corresponding text for the attack amount
@@ -91,7 +94,9 @@ public class Player {
     }
 
 
-
+    /**
+     * this method "resets" all the necessary attributes of the player object
+     */
     public void resetEverything(){
         health = 100;
         healthStatus = true;
@@ -102,6 +107,10 @@ public class Player {
     }
 
 
+    /**
+     * method that returns a boolean of whether the player is dead or not
+     * @return
+     */
     public boolean playerIsDead(){
         if (health > 0) {
             healthStatus = false;
@@ -111,19 +120,10 @@ public class Player {
         return healthStatus;
     }
 
-
-    public void subtractDragonScales(int scales){
-        dragonScalesBalance -= scales;
-    }
-
-    public int getDragonScalesBalance(){
-        return dragonScalesBalance;
-    }
-
-    public void addDragonScales(int scales){
-        dragonScalesBalance += scales;
-    }
-
+    //Helper methods
+    /**
+     * Generates a boolean of whether the player's attack will be successful or not
+     */
     private boolean generateSpellSuccess(){
 
         int successRate = (int)(Math.random() * 2) + 1;

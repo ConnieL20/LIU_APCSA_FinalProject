@@ -1,20 +1,8 @@
 import java.util.*;
 
 public class DragonSlayer {
-    /**
-     * Contains the logic for running the game, including welcoming the player, presenting the main menu, presenting
-     * appropriate player actions, printing messages to the user, moving the player from room to room, determining game
-     * over status, generating score, etc.
-     * Must include a play() method that is the launching point for the entire game.
-     * Should include any other static or instance variables and/or methods, including getters/setters and private helper
-     * methods, that you determine are necessary to implement the requirements.
-     */
 
-    /**
-     * keeping track of everything :
-     * r1 (azul) : 2 dragons
-     *
-     */
+    //Instance variables
     private Scanner scan;
     private Player player;
     private Dragon dragon;
@@ -29,6 +17,7 @@ public class DragonSlayer {
     private Set<String> listOfDens;
     private ArrayList<Integer> listOfScores;
     private boolean isValid;
+
 
     private boolean wantsToContinue;
     private boolean playAgain;
@@ -171,6 +160,7 @@ public class DragonSlayer {
         //creates player object
         player = new Player(playerName);
         sword = player.getSword();
+        clearConsole();
         System.out.println("-------------------------------------------------------------------------------------------");
         wait(1000);
         System.out.println("Greetings " + player.getName() + "! We have been awaiting for your arrival. Dragons have plagued our kingdom and we need your help to slay them!");
@@ -180,7 +170,7 @@ public class DragonSlayer {
         System.out.println("What's that? You want...a reward? Err...here's some gold, you can get a sword upgrade, increase dodge rate, or regain a fraction of your health by spending them! You could also get more gold by trading in some dragon scales?");
         System.out.println("." + "\n" + "." + "\n" + ".");
         System.out.println("O-oh you accept? *mumbles* What a little sh-" + "\n");
-        System.out.print("Silly me! We must keep this school-friendly. Well then, brave warrior, enter 'y' to venture on! ");
+        System.out.print("Silly me! We must keep this school-friendly. Well then, brave warrior, enter *ONLY* 'y' or 'Y' to venture on! ");
 
     }
 
@@ -194,11 +184,13 @@ public class DragonSlayer {
         String answer = scan.nextLine();
 
         if (answer.equals("y") || answer.equals("Y")) {
+            clearConsole();
             System.out.println("-------------------------------------------------------------------------------------------");
             wait(1000);
             setDragon(dragon);
 
             while (numRooms <= 5 && wantsToContinue && !player.playerIsDead() && playAgain && listOfDragons.size() > 0) {
+                boolean isAnswerValid = true;
                 numRooms++;
                 System.out.println("You are now in room: " + numRooms);
 
@@ -246,32 +238,28 @@ public class DragonSlayer {
                     System.out.println("SCORE BOARD:");
                     scoreBoard();
 
-                    System.out.print("Do you want to play again? (y/n) ");
-                    String playerPlaysAgain = scan.nextLine();
+                    while (isAnswerValid) {
+                        System.out.print("Do you want to play again? (y/n) ");
+                        String playerPlaysAgain = scan.nextLine();
 
-                    if (playerPlaysAgain.equals("n") || playerPlaysAgain.equals("N")){
-                        wantsToContinue = false;
-                        playAgain = false;
-                        System.out.println("Shame! We hope to see you back again :D");
-                    } else if (playerPlaysAgain.equals("y") || playerPlaysAgain.equals("Y")){
-                        wantsToContinue = true;
-                        playAgain = true;
-                        player.resetEverything();
-                        resetStats();
-                    }
-                    else {
-                        System.out.print("Bruh you're testing for bugs aren't you? Just answer the question! (y/n): ");
-                        playerPlaysAgain = scan.nextLine();
                         if (playerPlaysAgain.equals("n") || playerPlaysAgain.equals("N")){
                             wantsToContinue = false;
                             playAgain = false;
+                            isAnswerValid = false;
+                            System.out.println("Shame! We hope to see you back again :D");
                         } else if (playerPlaysAgain.equals("y") || playerPlaysAgain.equals("Y")){
+                            clearConsole();
                             wantsToContinue = true;
                             playAgain = true;
                             player.resetEverything();
                             resetStats();
+                            isAnswerValid = false;
+                        }
+                        else {
+                            System.out.print("Bruh you're testing for bugs aren't you? Just answer the question! ");
                         }
                     }
+
                     System.out.println("--------------------------------------------------------------------------------------");
                 } else {
                     if (checkWinnings()) {
@@ -286,35 +274,30 @@ public class DragonSlayer {
                         System.out.println("SCORE BOARD:");
                         scoreBoard();
                     } else {
-                        System.out.print("Would you like to proceed into the next room? (y/n) ");
-                        String proceed = scan.nextLine();
-                        if (proceed.equals("y") || proceed.equals("Y")){
-                            clearConsole();
-                            wantsToContinue = true;
-                            listOfDens.remove(den.getLairName());
-                            if (player.getHealthPotStatus()){
-                                System.out.println("Because you did not use your health pot, it has been discarded!");
-                            }
-                        } else if (proceed.equals("n") || proceed.equals("N")) {
-                            clearConsole();
-                            wantsToContinue = false;
-                            System.out.println("Goodbye!");
-                        }
 
-                        else {
-                            System.out.print("Bruh you're testing for bugs aren't you? Just play the game! (y/n): ");
-                            proceed = scan.nextLine();
+                        while (isAnswerValid) {
+                            System.out.print("Would you like to proceed into the next room? (y/n) ");
+                            String proceed = scan.nextLine();
                             if (proceed.equals("y") || proceed.equals("Y")){
+                                clearConsole();
                                 wantsToContinue = true;
                                 listOfDens.remove(den.getLairName());
                                 if (player.getHealthPotStatus()){
                                     System.out.println("Because you did not use your health pot, it has been discarded!");
                                 }
+                                isAnswerValid = false;
                             } else if (proceed.equals("n") || proceed.equals("N")) {
+                                clearConsole();
                                 wantsToContinue = false;
                                 System.out.println("Goodbye!");
+                                isAnswerValid = false;
+                            }
+
+                            else {
+                                System.out.print("Bruh you're testing for bugs aren't you? Just play the game! ");
                             }
                         }
+
                     }
 
                     System.out.println("--------------------------------------------------------------------------------------");
@@ -323,7 +306,7 @@ public class DragonSlayer {
             }
 
         } else {
-            System.out.println("That was an invalid input. Goodbye!");
+            System.out.print("The directions said ONLY 'y' or 'Y' >:p. Come back when you learn tor read!");
             isValid = false;
             wantsToContinue = false;
         }
@@ -339,33 +322,17 @@ public class DragonSlayer {
     private void enterRoom() {
 
         while (isValid && !player.playerIsDead() && !den.getIsAllSlayed()) {
+            boolean isAnswerValid2 = true;
             int playerAttack = player.getPlayerAttack();
             int dragonAttack = dragon.getDragonAttack();
 
             if (playerTurn) {
                 System.out.println("Your current sword attack stat is " + sword.getAttack() + ".");
-                System.out.print("Do you want to risk casting a spell for a higher sword attack? (y/n) ");
-                String spellChoice = scan.nextLine();
 
-                if (spellChoice.equals("y") || spellChoice.equals("Y")){
-                    if (playerAttack <= sword.getAttack() + 5){
-                        System.out.println("Not the best upgrade. Did you do something to anger the Gods? Oh well! Your new sword attack is now " + playerAttack + "!");
-                    } else {
-                        System.out.println("The Gods smile upon you! Your new sword attack is now " + playerAttack + "!");
-                    }
-                    System.out.println("You attack " + dragon.getDragonName());
-                    dragon.subtractDragonHealth(playerAttack);
-                } else if (spellChoice.equals("n") || spellChoice.equals("N")){
-                    System.out.println("You attack " + dragon.getDragonName());
-                    playerAttack = sword.getAttack();
-                    dragon.subtractDragonHealth(playerAttack);
-                } else if (spellChoice.equals("/stats")){
-                    displayStats();
-                    playerAttack = sword.getAttack();
-                    dragon.subtractDragonHealth(playerAttack);
-                } else {
-                    System.out.print("Bruh you're testing for bugs aren't you? Just play the game! (y/n): ");
-                    spellChoice = scan.nextLine();
+                while (isAnswerValid2) {
+                    System.out.print("Do you want to cast a spell for a higher sword attack? It might turn the tables! (y/n) ");
+                    String spellChoice = scan.nextLine();
+
                     if (spellChoice.equals("y") || spellChoice.equals("Y")){
                         if (playerAttack <= sword.getAttack() + 5){
                             System.out.println("Not the best upgrade. Did you do something to anger the Gods? Oh well! Your new sword attack is now " + playerAttack + "!");
@@ -374,16 +341,17 @@ public class DragonSlayer {
                         }
                         System.out.println("You attack " + dragon.getDragonName());
                         dragon.subtractDragonHealth(playerAttack);
+                        isAnswerValid2 = false;
                     } else if (spellChoice.equals("n") || spellChoice.equals("N")){
                         System.out.println("You attack " + dragon.getDragonName());
                         playerAttack = sword.getAttack();
                         dragon.subtractDragonHealth(playerAttack);
-                    } else if (spellChoice.equals("/stats")){
-                        displayStats();
-                        playerAttack = sword.getAttack();
-                        dragon.subtractDragonHealth(playerAttack);
+                        isAnswerValid2 = false;
+                    } else {
+                        System.out.print("Bruh you're testing for bugs aren't you? Just play the game! ");
                     }
                 }
+
 
                 if (dragon.dragonIsDead()) {
 
@@ -432,32 +400,23 @@ public class DragonSlayer {
                 }
 
                 if (den.isRoomSearched() && !player.playerIsDead() && player.getHealthPotStatus()){
-                    System.out.print("Would you like to use your health pot now? (y/n): ");
-                    String healthPot = scan.nextLine();
-                    if (healthPot.equals("y") || healthPot.equals("Y")){
-                        player.addHealth(Math.abs(player.getHealth() - 100)/2);
-                        System.out.println("You have used your health pot! Your health has been restored to " + player.getHealth());
-                        player.setHealthPotStatus(false);
-                    } else if (healthPot.equals("n") || healthPot.equals("N")){
-                        System.out.println("Alright then, if you say so!");
-                    } else if (healthPot.equals("/stats")) {
-                        displayStats();
-                        System.out.println("Since you decided to check your stats, your health pot remains unused.");
-                    }
-                    else {
-                        System.out.print("Bruh you're testing for bugs aren't you? Just play the game! (y/n): ");
-                        healthPot = scan.nextLine();
+
+                    while (isAnswerValid2) {
+                        System.out.print("Would you like to use your health pot now? (y/n): ");
+                        String healthPot = scan.nextLine();
                         if (healthPot.equals("y") || healthPot.equals("Y")){
                             player.addHealth(Math.abs(player.getHealth() - 100)/2);
                             System.out.println("You have used your health pot! Your health has been restored to " + player.getHealth());
                             player.setHealthPotStatus(false);
+                            isAnswerValid2 = false;
                         } else if (healthPot.equals("n") || healthPot.equals("N")){
                             System.out.println("Alright then, if you say so!");
-                        } else if (healthPot.equals("/stats")) {
-                            displayStats();
-                            System.out.println("Since you decided to check your stats, your health pot remains unused.");
+                            isAnswerValid2 = false;
+                        } else {
+                            System.out.print("Bruh you're testing for bugs aren't you? Just play the game! ");
                         }
                     }
+
                 } else if (den.isRoomSearched() && !player.playerIsDead() && !player.getHealthPotStatus()) {
                     System.out.println("You've already used your health pot!");
                 } else {
@@ -481,12 +440,13 @@ public class DragonSlayer {
     private void purchaseMenu(){
         System.out.println("--------------------------------------------------------------------------------------");
         System.out.println(dragon.getDragonName() + " has dropped " + dragon.getDragonScales() + " scales!");
+        displayStats();
 
         if (player.getGold() < 10){
             System.out.println("Unfortunately, you don't have enough money to even browse the menu! Don't worry, dragon scales will now be automatically added to your score.");
             player.addDragonScales(dragon.getDragonScales());
         } else {
-            System.out.println("\nHere are you options:\n1. 10 Gold to double your current health.\n2. 20 Gold to double your base sword attack.\n3. 30 Gold to double your dodge rate.\n4. Trade in half of your dragon scales for 50 more pieces of gold.\n5. Do nothing and add your dragon scales!");
+            System.out.println("\nHere are you options:\n1. 10 Gold to double your current health.\n2. 20 Gold to double your base sword attack.\n3. 30 Gold to double your dodge rate.\n4. Trade in half of your dragon scales for 50 more pieces of gold.\n5. Buy nothing and add your dragon scales!");
             System.out.print("\nType in the corresponding answer number (i.e. 1, 2, 3...) ");
             String purchase = scan.nextLine();
 
@@ -524,9 +484,6 @@ public class DragonSlayer {
             } else if (purchase.equals("5")) {
                 player.addDragonScales(dragon.getDragonScales());
                 System.out.println("Ok then! You get to keep your dragon scales. They are now added to your total score!");
-            } else if (purchase.equals("/stats")){
-                displayStats();
-                System.out.println("Since you decided to check your stats, nothing is purchased or added to your score!");
             } else {
                 System.out.println("Oops! That's not an option. YOU GET NOTHING!!");
             }
@@ -544,29 +501,15 @@ public class DragonSlayer {
      * randomly decides if the player finds one in the room
      */
     private void searchHealthPot() {
-        System.out.print("Would you like to search the room for a health pot? You can save and use it to heal yourself during battle! (y/n) ");
-        String answer = scan.nextLine();
-        if (answer.equals("n") || answer.equals("N")) {
-            clearConsole();
-            den.setRoomSearchedStatus(false);
-        } else if (answer.equals("y") || answer.equals("Y")) {
-            clearConsole();
-            int healthPotRandom = (int) (Math.random() * 2) + 1;
-            if (healthPotRandom == 1) {
-                den.setRoomSearchedStatus(true);
-                System.out.println("You've successfully found a health pot! You may now choose to use it as you see fit during battle.");
-                player.setHealthPotStatus(true);
-            } else {
-                den.setRoomSearchedStatus(false);
-                System.out.println("Unfortunately, there is no health pot in this room.");
-                player.setHealthPotStatus(false);
-            }
-        }  else {
-            System.out.print("Bruh you're testing for bugs aren't you? Just play the game! (y/n): ");
-            answer = scan.nextLine();
+        boolean isAnswerValid3 = true;
+
+        while (isAnswerValid3) {
+            System.out.print("Would you like to search the room for a health pot? You can save and use it to heal yourself during battle! (y/n) ");
+            String answer = scan.nextLine();
             if (answer.equals("n") || answer.equals("N")) {
-                den.setRoomSearchedStatus(false);
                 clearConsole();
+                den.setRoomSearchedStatus(false);
+                isAnswerValid3 = false;
             } else if (answer.equals("y") || answer.equals("Y")) {
                 clearConsole();
                 int healthPotRandom = (int) (Math.random() * 2) + 1;
@@ -579,10 +522,17 @@ public class DragonSlayer {
                     System.out.println("Unfortunately, there is no health pot in this room.");
                     player.setHealthPotStatus(false);
                 }
+                isAnswerValid3 = false;
+            }  else {
+                System.out.print("Bruh you're testing for bugs aren't you? Just play the game! ");
+
             }
         }
+
     }
 
+
+    //Helper methods
 
     /**
      * checks if the player has won
@@ -616,10 +566,9 @@ public class DragonSlayer {
      */
     private void displayStats(){
         System.out.println("Here are your stats:");
-        System.out.println("- Your health is: " + player.getHealth() + "\n- Your current sword attack is: " + sword.getAttack() + " (you can increase it when you clear a room)!\n- Your dodge rate is: " + sword.getDodge() + "%\n- You currently have: " + player.getGold() + " gold.\n- You current have: " + player.getDragonScalesBalance() + " dragon scales.");
-        System.out.println("** During battle, you can choose to cast a spell to temporarily increase your sword attack (beware, it might decrease it :p)! **");
+        System.out.println("- Your health is: " + player.getHealth() + "\n- Your current sword attack is: " + sword.getAttack() + " (you can increase it when you clear a room)!\n- Your dodge rate is: " + sword.getDodge() + "%\n- You currently have: " + player.getGold() + " gold.\n- You currently have: " + player.getDragonScalesBalance() + " dragon scales.");
+        System.out.println("** During battle, you can choose to cast a spell to temporarily increase your sword attack **");
         System.out.println("** Each Dragon starts off with a base health of 100 and base attack of 30 (which they can increase during battle) **\n");
-        System.out.println("NOTE: You can view your stats DURING battle AND WHEN YOU ARE BROWSING THE MENU. Just type in '/stats' ! However, this will eliminate any other option you would have had.\n");
     }
 
     private void printAsciiArt() {

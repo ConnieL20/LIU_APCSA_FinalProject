@@ -1,15 +1,5 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public class Dragon {
-    /**
-     * Used to create a dragon.
-     * Should store the dragon health and level (1, 2, or 3).
-     * Should have methods to attack (including determine attack amount), handle an incoming attack
-     * (including updating the dragon’s own health), and determine which of the four outcomes happen when it dies.
-     * Should include any other static or instance variables and/or methods, including getters/setters and private
-     * helper methods, that you determine are necessary to implement the requirements.
-     */
+
 
     //Instance Variables
     private int health;
@@ -35,18 +25,7 @@ public class Dragon {
 
     }
 
-    /**
-     * Method for calculating the attack amount of the dragon
-     * @return
-     */
-    public int getDragonAttack(){
-        int dragonAttackAmt = level;
 
-        int dragonBuffer = (int)(Math.random() * 9) + 2;
-        dragonAttackAmt *= dragonBuffer;
-
-        return dragonAttackAmt + attack;
-    }
 
     //Getter and setter methods
     public int getDragonHealth() {
@@ -69,7 +48,18 @@ public class Dragon {
         return dragonScales;
     }
 
+    /**
+     * Method for calculating the attack amount of the dragon
+     * @return
+     */
+    public int getDragonAttack(){
+        int dragonAttackAmt = level;
 
+        int dragonBuffer = (int)(Math.random() * 9) + 2;
+        dragonAttackAmt *= dragonBuffer;
+
+        return dragonAttackAmt + attack;
+    }
 
     /**
      * boolean that checks if a dragon is dead or not
