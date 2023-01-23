@@ -70,6 +70,16 @@ public class DragonSlayer {
         }
     }
 
+    /**
+     * clears the terminal
+     * @param
+     */
+    public static void clearConsole() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+
     //Getter and Setter methods
 
     /**
@@ -227,7 +237,11 @@ public class DragonSlayer {
                 enterRoom();
 
                 if (player.playerIsDead()){
-                    System.out.println("GAME OVER!!");
+                    System.out.println("""
+                            ░▒█▀▀█░█▀▀▄░▒█▀▄▀█░▒█▀▀▀░░░▒█▀▀▀█░▒█░░▒█░▒█▀▀▀░▒█▀▀▄░█░█░█
+                            ░▒█░▄▄▒█▄▄█░▒█▒█▒█░▒█▀▀▀░░░▒█░░▒█░░▒█▒█░░▒█▀▀▀░▒█▄▄▀░▀░▀░▀
+                            ░▒█▄▄▀▒█░▒█░▒█░░▒█░▒█▄▄▄░░░▒█▄▄▄█░░░▀▄▀░░▒█▄▄▄░▒█░▒█░▄░▄░▄                             
+                            """);
                     System.out.println("--------------------------------------------------------------------------------------");
                     System.out.println("SCORE BOARD:");
                     scoreBoard();
@@ -262,6 +276,11 @@ public class DragonSlayer {
                 } else {
                     if (checkWinnings()) {
                         System.out.println("--------------------------------------------------------------------------------------");
+                        System.out.println("""
+                                ░▒█▀▀▄░▒█▀▀▀█░▒█▄░▒█░▒█▀▀█░▒█▀▀▄░█▀▀▄░▀▀█▀▀░▒█░▒█░▒█░░░░█▀▀▄░▀▀█▀▀░▀█▀░▒█▀▀▀█░▒█▄░▒█░▒█▀▀▀█
+                                ░▒█░░░░▒█░░▒█░▒█▒█▒█░▒█░▄▄░▒█▄▄▀▒█▄▄█░░▒█░░░▒█░▒█░▒█░░░▒█▄▄█░░▒█░░░▒█░░▒█░░▒█░▒█▒█▒█░░▀▀▀▄▄
+                                ░▒█▄▄▀░▒█▄▄▄█░▒█░░▀█░▒█▄▄▀░▒█░▒█▒█░▒█░░▒█░░░░▀▄▄▀░▒█▄▄█▒█░▒█░░▒█░░░▄█▄░▒█▄▄▄█░▒█░░▀█░▒█▄▄▄█                        
+                                """);
                         System.out.println("CONGRATULATIONS!!! You have saved us all! Maybe you weren't a little sh-\nOh my! I almost slipped up again ;)\nWe hope to see you again!");
                         System.out.println("--------------------------------------------------------------------------------------");
                         System.out.println("SCORE BOARD:");
@@ -270,12 +289,14 @@ public class DragonSlayer {
                         System.out.print("Would you like to proceed into the next room? (y/n) ");
                         String proceed = scan.nextLine();
                         if (proceed.equals("y") || proceed.equals("Y")){
+                            clearConsole();
                             wantsToContinue = true;
                             listOfDens.remove(den.getLairName());
                             if (player.getHealthPotStatus()){
                                 System.out.println("Because you did not use your health pot, it has been discarded!");
                             }
                         } else if (proceed.equals("n") || proceed.equals("N")) {
+                            clearConsole();
                             wantsToContinue = false;
                             System.out.println("Goodbye!");
                         }
@@ -341,6 +362,7 @@ public class DragonSlayer {
                 } else if (spellChoice.equals("/stats")){
                     displayStats();
                     playerAttack = sword.getAttack();
+                    dragon.subtractDragonHealth(playerAttack);
                 } else {
                     System.out.print("Bruh you're testing for bugs aren't you? Just play the game! (y/n): ");
                     spellChoice = scan.nextLine();
@@ -359,6 +381,7 @@ public class DragonSlayer {
                     } else if (spellChoice.equals("/stats")){
                         displayStats();
                         playerAttack = sword.getAttack();
+                        dragon.subtractDragonHealth(playerAttack);
                     }
                 }
 
@@ -524,8 +547,10 @@ public class DragonSlayer {
         System.out.print("Would you like to search the room for a health pot? You can save and use it to heal yourself during battle! (y/n) ");
         String answer = scan.nextLine();
         if (answer.equals("n") || answer.equals("N")) {
+            clearConsole();
             den.setRoomSearchedStatus(false);
         } else if (answer.equals("y") || answer.equals("Y")) {
+            clearConsole();
             int healthPotRandom = (int) (Math.random() * 2) + 1;
             if (healthPotRandom == 1) {
                 den.setRoomSearchedStatus(true);
@@ -541,7 +566,9 @@ public class DragonSlayer {
             answer = scan.nextLine();
             if (answer.equals("n") || answer.equals("N")) {
                 den.setRoomSearchedStatus(false);
+                clearConsole();
             } else if (answer.equals("y") || answer.equals("Y")) {
+                clearConsole();
                 int healthPotRandom = (int) (Math.random() * 2) + 1;
                 if (healthPotRandom == 1) {
                     den.setRoomSearchedStatus(true);
@@ -555,6 +582,7 @@ public class DragonSlayer {
             }
         }
     }
+
 
     /**
      * checks if the player has won
@@ -621,7 +649,9 @@ public class DragonSlayer {
                 """
         );
 
+
     }
+
 
 
     /**
@@ -630,5 +660,6 @@ public class DragonSlayer {
     private void promptEnterKey(){
         System.out.print("Press \"ENTER\" to continue...");
         scan.nextLine();
+        clearConsole();
     }
 }
